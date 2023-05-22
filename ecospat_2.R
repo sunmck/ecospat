@@ -169,6 +169,9 @@ ecospat.shift.centroids(data.frame(ocEUR)[,4],
 ocEUR$occ <- 1
 ocEUR_coords <- data.frame(coordinates(ocEUR))
 
+# convert RasterBrick to RasterStack
+eurEnvR <- stack(eurEnvR)
+
 nat.biomod <- BIOMOD_FormatingData(resp.var = as.numeric(data.frame(ocEUR)[,23]),
                                    PA.strategy = "random", # pseudo absence selection necessary because only occurrence and no absence                                       data is available
                                    PA.nb.rep = 1, # number of repetitions of pseudo-absence points that are drawn
@@ -194,12 +197,14 @@ nat.ESM.ens <- ecospat.ESM.EnsembleModeling(nat.ESM,
                                             weighting.score = c("SomersD"), 
                                             threshold = 0)
 
+# convert RasterBrick to RasterStack
+ausEnvR <- stack(ausEnvR)
+
 # Projection of simple bivariate models into new space or time
 nat.ESM_proj_current <- ecospat.ESM.Projection(ESM.modeling.output = nat.ESM,
                                                new.env = ausEnvR)
 
 # Projection of calibrated ESMs into new space or time
-nat.ESM_proj_current$new.env.raster = TRUE
 nat.ESM.ens_proj_current <- ecospat.ESM.EnsembleProjection(ESM.prediction.output = nat.ESM_proj_current,
                                                            ESM.EnsembleModeling.output = nat.ESM.ens,
                                                            chosen.models = 'all')
