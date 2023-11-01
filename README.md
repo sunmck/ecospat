@@ -1,4 +1,4 @@
-# Niche modeling with ecospat in R
+# Niche Modelling with Ecospat in R
 #### authors: Sunniva McKeever, Isabella Metz and Janik Hoffmann
 #### 2023-05-23
 
@@ -98,10 +98,9 @@ plot(wrld_simpl, border = "gray80")
 points(ocEUR, pch = 16, col = 2, cex = 0.3)
 points(ocAUS, pch = 16, col = 4, cex = 0.3, add=T)
 ```
-
+![datadownload](https://github.com/sunmck/ecospat/assets/116874799/38bba10c-d671-40e4-a4ba-8655a61dc6e8)
 
 ### Pre-modeling
-
 
 The environmental variables need to be clipped to the respective extents of the native and invasive geographical ranges. So in this case to the extents of Europe and Australia. For the niche quantification, a matrix with the background environmental variables from both ranges, as well as the global environment are needed. After cropping the rasters, `getValues`is applied to convert them to a data frame.
 
@@ -208,7 +207,6 @@ max=10, nclass=10, nperm=100)
 
 ## Core-modeling
 
-
 **Niche quantification**
 
 For the niche quantification, a Principal Component Analysis (PCA) of the environmental data is carried out.
@@ -251,6 +249,7 @@ ecospat.plot.niche.dyn(nativeGrid, invasiveGrid, quant = 0.1, interest = 2, titl
 
 ecospat.plot.contrib(contrib=pca.clim$co, eigen=pca.clim$eig)
 ```
+![occurrencegrid](https://github.com/sunmck/ecospat/assets/116874799/6be3bb34-4b1b-4058-a803-06e9e37985d2)
 
 The plot shows the environmental conditions in Europe (green line) and Australia (red line). The green area represents the native environmental range, whereas the red area shows the invasive range. The blue area elucidates environments occupied in both ranges, called niche overlap. 
 
@@ -285,6 +284,9 @@ ecospat.plot.niche.dyn(earlyGeoGrid, lateGeoGrid, quant = 0)
 plot(wrld_simpl, add = TRUE)
 ```
 
+![earlylate](https://github.com/sunmck/ecospat/assets/116874799/610f02c8-be1c-4806-bd81-77c7f123a8e3)
+
+
 **Further methods and tests**
 
 Measures of niche overlap are used to identify potential overlaps or changes in the niches of, for instance, invasive species. The niche equivalency test and the niche similarity test allow to quantify the statistical significance of detected niche differences against null model niches taken randomly from the background data. 
@@ -313,10 +315,7 @@ ecospat.plot.overlap.test(eq.test, "D", "Equivalency")
 ecospat.plot.overlap.test(sim.test, "D", "Similarity")
 ```
 
-
-
 Now we want to plot the niche dynamics against one gradient (here temperature) with `ecospat.plot.niche.dyn()`
-
 
 ```{r one gradient, warning=FALSE}
 # gridding the native niche
@@ -342,6 +341,7 @@ ecospat.shift.centroids(data.frame(ocEUR)[,4],
                         data.frame(eurEnvM)[,1],
                         data.frame(ausEnvM)[,1])
 ```
+![avgtemp](https://github.com/sunmck/ecospat/assets/116874799/03200aa3-1eec-426e-b084-90d1fbf41e1b)
 
 **Ensemble of Small Models (ESM)**
 
@@ -402,12 +402,9 @@ plot(my.ESM_EFproj_current)
 plot(ocAUS, add = T)
 ```
 
-
-
-
+![ESM](https://github.com/sunmck/ecospat/assets/116874799/71f93881-0608-4256-b256-6fcbe15b5c6a)
 
 ## Part 2: Community properties of plant assemblages in the Swiss Alps
-
 
 In this part, we use the ecospat package to perform a spatial analysis of a plant community in the Swiss Alps by investigating their phylogentic diversity and co-occurrence patterns and by predicting the spatial distribution of assemblages. The former step includes functions that represent unique implementations of the SESAM framework.
 
